@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// frontend
+Route::get('/','Index\IndexController@index');
+
+
+// backend
+Route::group(['prefix' => 'yexk'], function () {
+    Route::get('/', 'Back\LoginController@index');
+    
+
+
 });
