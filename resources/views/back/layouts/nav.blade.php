@@ -25,7 +25,12 @@
           <ul class="sub">
             <li>
               <a href="{{ route('art.add') }}">
-                添加分类
+                分类添加
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('art.lists') }}">
+                分类列表
               </a>
             </li>
             <li>

@@ -24,6 +24,7 @@ Route::group(['prefix' => 'yexk'], function () {
     // categroy
     Route::get('/cate/add', 'Back\CategoriesController@add')->name('art.add');
     Route::post('/cate/store', 'Back\CategoriesController@store')->name('art.store');
+    Route::get('/cate/lists', 'Back\CategoriesController@lists')->name('art.lists');
     
 
 

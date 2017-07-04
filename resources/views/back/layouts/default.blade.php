@@ -9,6 +9,7 @@
 	<title> @yield('title') - Yexk </title>
 	<base href="/back/">
 	@include('back.layouts.links')
+	@yield('links')
 </head>
 <body>
 @include('back.layouts.top')

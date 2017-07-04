@@ -14,10 +14,29 @@ class CategoriesController extends Controller
         $cate = Categories::all(['id','name']);
         return view( 'back/categories/add', ['cate' => $cate] );
     }
-
+    
+    /**
+     * 添加文章分类
+     * @Author Yexk       <yexk@yexk.cn>
+     * @Date   2017-07-05
+     * @param  Category   $request       表单验证后的数据
+     * @return object                    状态
+     */
     public function store(Category $request)
     {
-        Categories::insertData($request);
+        if (!$request->method('post'))
+        {
+            abort(404);
+        }
+
+        return Categories::insertData($request);
 
     }
+
+    public function lists()
+    {
+        $cate = Categories::all();
+    	return view('back/categories/lists',['cate' => $cate]);
+    }
+
 }
