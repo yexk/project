@@ -12,12 +12,18 @@
 */
 
 // frontend
-Route::get('/','Index\IndexController@index');
+Route::get('/','Index\IndexController@index')->name('/');
 
 
 // backend
 Route::group(['prefix' => 'yexk'], function () {
-    Route::get('/', 'Back\LoginController@index');
+    Route::get('/', 'Back\LoginController@index')->name('/');
+    // home 
+    Route::get('/home', 'Back\HomeController@index')->name('home');
+
+    // categroy
+    Route::get('/cate/add', 'Back\CategoriesController@add')->name('art.add');
+    Route::post('/cate/store', 'Back\CategoriesController@store')->name('art.store');
     
 
 
