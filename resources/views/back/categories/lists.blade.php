@@ -26,7 +26,7 @@
                   <th>
                     Id
                   </th>
-                  <th>
+                  <th style="display: none;">
                     父级ID
                   </th>
                   <th>
@@ -46,17 +46,18 @@
                   <td data-title="Id">
                     {{ $v->id }}
                   </td>
-                  <td data-title="父级ID">
+                  <td data-title="父级ID" style="display: none;">
                     {{ $v->pid }}
                   </td>
                   <td data-title="名称">
-                    {{ $v->name }}
+                    {{ str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v->level) }}  {{ $v->name }}
                   </td>
                   <td data-title="描述">
                     {{ $v->description }}
                   </td>
                   <td data-title="操作">
-                    <button>edit</button>
+                    <button id="edit" data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-info"> edit </button>
+                    <button id="delete" data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-danger"> delete </button>
                   </td>
                 </tr>
                 @endforeach
@@ -72,6 +73,8 @@
 
 @section('scripts')
 <script>
-
+$(function(){
+  
+});
 </script>
 @stop

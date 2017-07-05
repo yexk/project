@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->unsignedTinyInteger('status')->default('1')->comment('0->delete,1->normal');;
             $table->timestamp('register');
             $table->timestamp('last_login');
-            $table->string('last_login_ip');
+            $table->string('last_login_ip')->default(0);
             $table->timestamps();
         });
     }

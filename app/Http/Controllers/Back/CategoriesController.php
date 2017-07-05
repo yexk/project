@@ -11,7 +11,7 @@ class CategoriesController extends Controller
 {
     public function add()
     {
-        $cate = Categories::all(['id','name']);
+        $cate = Categories::getAll(['id','name','pid']);
         return view( 'back/categories/add', ['cate' => $cate] );
     }
     
@@ -35,7 +35,7 @@ class CategoriesController extends Controller
 
     public function lists()
     {
-        $cate = Categories::all();
+        $cate = Categories::getAll(['id','name','pid']);
     	return view('back/categories/lists',['cate' => $cate]);
     }
 

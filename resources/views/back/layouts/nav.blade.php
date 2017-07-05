@@ -3,7 +3,7 @@
     <div id="sidebar" class="nav-collapse">
       <ul class="sidebar-menu" id="nav-accordion">
         <li >
-          <a href="{{ route('home') }}" class="active">
+          <a href="{{ route('home') }}">
             <i class="fa fa-dashboard">
             </i>
             <span>

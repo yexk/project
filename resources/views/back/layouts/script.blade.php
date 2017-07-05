@@ -11,7 +11,27 @@
 <script src="js/count.js"></script><!-- COUNT JS -->
 <!-- END JS -->
 <script>
-	 $(".go-top").click(function(){ 
+$(function(){
+	$(".go-top").click(function(){ 
         $.scrollTo(0,1000); 
-    }); 
+    });
+    
+	var url_pathname = location.pathname;
+	$("#nav-accordion li a").each(function(index, el) {
+
+		if (-1 != el.href.indexOf(url_pathname) ) {
+			$activeLi  = $(this).parent('li');
+			$parentsUl = $activeLi.parent('ul');
+			$parentsA  = $parentsUl.siblings('a');
+			if ('nav-accordion' == $parentsUl.attr('ID')) {
+				// 一级菜单
+				$(this).addClass('active');
+			}else{
+				$activeLi.addClass('active');
+				$parentsUl.show();
+				$parentsA.addClass('active');
+			}
+		}
+	});
+});
 </script>

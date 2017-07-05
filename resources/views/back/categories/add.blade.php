@@ -13,7 +13,7 @@
            </span>
         </header>
         <div class="panel-body">
-           <form class="form-horizontal tasi-form" id="cate_add">
+           <form class="cmxform form-horizontal tasi-form" id="cate_add">
               {{ csrf_field() }}
               <div class="form-group">
                  <label class="col-sm-2 col-sm-2 control-label">文章分类父级</label>
@@ -21,7 +21,7 @@
                     <select name="pid" class="form-control">
                        <option value="0">顶级分类</option>
                        @foreach ($cate as $v)
-                         <option value="{{ $v->id }}">{{ $v->name }}</option>
+                         <option value="{{ $v->id }}">{{ str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v->level) }} {{ $v->name }}</option>
                        @endforeach
                     </select>
                  </div>
@@ -29,8 +29,7 @@
               <div class="form-group">
                  <label class="col-sm-2 col-sm-2 control-label">文章分类名称</label>
                  <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" placeholder="文章分类名称">
-                    <span id="name_message" class="help-block text-danger" style="display: none;"></span>
+                    <input type="text" name="name" class="form-control" placeholder="文章分类名称" required="">
                  </div>
               </div>
               <div class="form-group">
@@ -53,6 +52,8 @@
 @stop
 
 @section('scripts')
+<script src="js/jquery.validate.min.js"></script><!-- VALIDATE JS  -->
+<script src="js/form-validation-script.js" ></script><!-- FORM VALIDATION SCRIPT JS  -->
 <script>
 $(function(){
 
@@ -61,26 +62,36 @@ $(function(){
   });
 
   // 提交表单
-  $('#cate_add').on('submit', function(event) {
-    event.preventDefault();
-    $.ajax({
-      url: "{{ route('art.store') }}",
-      type: 'POST',
-      dataType: 'JSON',
-      data: $(this).serialize(),
-      success: function(data) {
-        console.log(data);
-      },
-      error: function(data) {
-        if (4 == data.readyState && 422 == data.status) {
-          var responseText = JSON.parse(data.responseText);
-          $('#name_message').show().html(responseText.name[0]);
+  var $cate_add = $('#cate_add');
+  $cate_add.validate({
+        rules: {
+            name: "required",
+        },
+        messages: {
+            name: '分类名称不能为空！',
+        },
+        submitHandler:function () {
+          $.ajax({
+            url: "{{ route('art.store') }}",
+            type: 'POST',
+            dataType: 'JSON',
+            data: $cate_add.serialize(),
+            success: function(data) {
+              if (1 == data.code) {
+                alert(data.msg);
+                location.href = location.href;
+              }
+            },
+            error: function(data) {
+              if (4 == data.readyState && 422 == data.status) {
+                var responseText = JSON.parse(data.responseText);
+                $('[name="name"]').next().show().html(responseText.name[0]);
+              }
+            }
+          });
         }
-      }
-    });
-    
-  });
-
+    });    
+  
 });
 </script>
 @stop

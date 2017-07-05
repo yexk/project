@@ -33,7 +33,7 @@ class Categories extends Model
     	$data = [];
     	$data['pid'] = $post->pid;
     	$data['name'] = $post->name;
-    	$data['description'] = $post->description;
+    	$data['description'] = $post->description ? $post->description : '' ;
         $res = self::create($data);
         if ($res)
         {
@@ -43,4 +43,11 @@ class Categories extends Model
 
         return $result;
     }
+
+    public static function getAll($array)
+    {
+        $data = self::all($array);
+        return get_tree($data);
+    }
+
 }

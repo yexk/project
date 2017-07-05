@@ -33,6 +33,7 @@ class Category extends FormRequest
     {
         return [
             'name.required' => '分类名称不能为空！',
+            'pid' => '父级分类必选！',
         ];
     }
 }
