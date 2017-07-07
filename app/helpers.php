@@ -26,3 +26,26 @@ if (!function_exists('get_tree')) {
         return $arr;
     }
 }
+
+if (!function_exists('get_sub_tree')) {
+    /**
+     * 使用递归，获取树状结构
+     * 如果传入第二个参数代表排除自己的子集
+     * @param  array  $data  表单接受的数据
+     * @param  number $selfid 当前点击的id
+     * @return return array    返回一个子集数组
+     */
+    function get_sub_tree($data,$selfid=-1)
+    {
+        static $arr = array();
+        foreach ($data as $k => $v)
+        {
+            if ( $v['pid'] == $selfid )
+            {
+                $arr[] = $v;
+                get_sub_tree($data,$v['id']);
+            }
+        }
+        return $arr;
+    }
+}

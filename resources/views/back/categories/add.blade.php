@@ -72,7 +72,7 @@ $(function(){
         },
         submitHandler:function () {
           $.ajax({
-            url: "{{ route('art.store') }}",
+            url: "{{ route('cate.store') }}",
             type: 'POST',
             dataType: 'JSON',
             data: $cate_add.serialize(),

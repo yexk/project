@@ -24,7 +24,7 @@ class CategoriesController extends Controller
      */
     public function store(Category $request)
     {
-        if (!$request->method('post'))
+        if (!$request->isMethod('post'))
         {
             abort(404);
         }
@@ -35,8 +35,38 @@ class CategoriesController extends Controller
 
     public function lists()
     {
-        $cate = Categories::getAll(['id','name','pid']);
+        $cate = Categories::getAll(['id','name','pid','description']);
     	return view('back/categories/lists',['cate' => $cate]);
+    }
+
+    public function edits(Request $request)
+    {
+        if ($request->get('_delete'))
+        {
+            // 删除
+            if ($request->get('_force'))
+            {
+                return Categories::setDelete($request,true);
+            }else
+            {
+                return Categories::setDelete($request);
+            }
+
+        }
+        else
+        {
+            // 修改
+            $this->validate($request, [
+                'edit_id' => 'required',
+                'edit_cate_name' => 'required|max:255',
+            ],[
+                'edit_cate_name' => '分类名称必须！',
+            ]);
+
+            return Categories::updateData($request);
+        }
+
+
     }
 
 }

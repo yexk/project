@@ -24,12 +24,12 @@
           </a>
           <ul class="sub">
             <li>
-              <a href="{{ route('art.add') }}">
+              <a href="{{ route('cate.add') }}">
                 分类添加
               </a>
             </li>
             <li>
-              <a href="{{ route('art.lists') }}">
+              <a href="{{ route('cate.lists') }}">
                 分类列表
               </a>
             </li>

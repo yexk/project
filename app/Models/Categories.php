@@ -50,4 +50,60 @@ class Categories extends Model
         return get_tree($data);
     }
 
+    public static function updateData($post)
+    {
+        $result = [ 'code' => '0' , 'msg'=> '未知错误！' , 'data' => '' ];
+
+        $data = [];
+        $data['name'] = $post->edit_cate_name;
+        $data['description'] = $post->edit_cate_description ? $post->edit_cate_description : '' ;
+        $res = self::where(['id'=>$post->edit_id])->update($data);
+        if ($res)
+        {
+            $result['code'] = '1';
+            $result['msg'] = '更新成功！';
+        }
+
+        return $result;
+    }
+
+    public static function setDelete($request , $force = false)
+    {
+        $result = [ 'code' => '0' , 'msg'=> '未知错误！' , 'data' => '' ];
+        if ($request->_delete)
+        {
+            // 强制删除自己和子集
+            if ($force)
+            {
+                $del_sub_res = get_sub_tree(self::all(['id','pid']),$request->delete_id);
+                $del_sub_id = [];
+                array_push($del_sub_id,$request->delete_id);
+                foreach ($del_sub_res as $v)
+                {
+                    array_push($del_sub_id,$v->id);
+                }
+                $result['data'] = self::destroy($del_sub_id);
+                $result['code'] = 1;
+            }
+            else
+            {
+                $result['data'] = self::where('pid',$request->delete_id)->count(['id']);
+                if (0 != $result['data'])
+                {
+                    $result['msg'] = '存在子级，请先处理子集';
+                    $result['code'] = 2;
+                }
+                else
+                {
+                    $result['data'] = self::destroy($request->delete_id);
+                    $result['code'] = 1;
+                }
+
+            }
+        }
+
+        return $result;
+
+    }
+
 }

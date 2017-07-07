@@ -11,7 +11,12 @@
 <script src="js/count.js"></script><!-- COUNT JS -->
 <!-- END JS -->
 <script>
+Config = {};
+
 $(function(){
+	Config._token = $('meta[name="_token"]').attr('content');
+
+
 	$(".go-top").click(function(){ 
         $.scrollTo(0,1000); 
     });

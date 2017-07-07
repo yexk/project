@@ -22,9 +22,10 @@ Route::group(['prefix' => 'yexk'], function () {
     Route::get('/home', 'Back\HomeController@index')->name('home');
 
     // categroy
-    Route::get('/cate/add', 'Back\CategoriesController@add')->name('art.add');
-    Route::post('/cate/store', 'Back\CategoriesController@store')->name('art.store');
-    Route::get('/cate/lists', 'Back\CategoriesController@lists')->name('art.lists');
+    Route::get('/cate/add', 'Back\CategoriesController@add')->name('cate.add');
+    Route::post('/cate/store', 'Back\CategoriesController@store')->name('cate.store');
+    Route::get('/cate/lists', 'Back\CategoriesController@lists')->name('cate.lists');
+    Route::match(['get', 'post'],'/cate/edits', 'Back\CategoriesController@edits')->name('cate.edits');
     
 
 
