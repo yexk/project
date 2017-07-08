@@ -78,8 +78,13 @@ $(function(){
             data: $cate_add.serialize(),
             success: function(data) {
               if (1 == data.code) {
-                alert(data.msg);
-                location.href = location.href;
+                swal({
+                  title: data.msg,
+                  text: '',
+                  type: "success",
+                },function(){
+                  location.href = location.href;
+                });
               }
             },
             error: function(data) {

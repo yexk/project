@@ -41,10 +41,10 @@ class CategoriesController extends Controller
 
     public function edits(Request $request)
     {
-        if ($request->get('_delete'))
+        if ('true' === $request->get('_delete'))
         {
             // 删除
-            if ($request->get('_force'))
+            if ('true' === $request->get('_force'))
             {
                 return Categories::setDelete($request,true);
             }else

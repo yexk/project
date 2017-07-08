@@ -7,6 +7,7 @@
 	<link href="assets/morris.js-0.4.3/morris.css" rel="stylesheet"><!-- MORRIS CHART CSS -->
      <!--dashboard calendar-->
      <link href="css/clndr.css" rel="stylesheet"><!-- CALENDER CSS -->
+     <link href="css/sweetalert.css" rel="stylesheet"><!-- SWEETALERT CSS -->
      <!--[if lt IE 9]>
 	<script src="js/html5shiv.js">
 	</script>

@@ -97,6 +97,7 @@ class Categories extends Model
                 {
                     $result['data'] = self::destroy($request->delete_id);
                     $result['code'] = 1;
+                    $result['msg'] = '删除成功！';
                 }
 
             }

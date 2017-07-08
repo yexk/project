@@ -9,6 +9,7 @@
 <script src="js/sparkline-chart.js"></script><!-- SPARKLINE CHART JS -->
 <script src="js/common-scripts.js"></script><!-- BASIC COMMON JS -->
 <script src="js/count.js"></script><!-- COUNT JS -->
+<script src="js/sweetalert.min.js"></script><!-- SWEETALERT JS -->
 <!-- END JS -->
 <script>
 Config = {};
