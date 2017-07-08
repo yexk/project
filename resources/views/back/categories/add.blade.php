@@ -29,7 +29,7 @@
               <div class="form-group">
                  <label class="col-sm-2 col-sm-2 control-label">文章分类名称</label>
                  <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" placeholder="文章分类名称" required="">
+                    <input type="text" name="name" class="form-control" placeholder="文章分类名称">
                  </div>
               </div>
               <div class="form-group">

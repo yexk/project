@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categories extends Model
 {
 
-	protected $table = "Categories";
+	protected $table = "categories";
     
     /**
      * 可以被批量赋值的属性。

@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class CategoriesController extends Controller
 {
+    /**
+     * 显示添加的页面
+     * @Author   Yexk       <yexk@carystudio.com>
+     * @DateTime 2017-07-05
+     */
     public function add()
     {
         $cate = Categories::getAll(['id','name','pid']);
@@ -24,21 +29,28 @@ class CategoriesController extends Controller
      */
     public function store(Category $request)
     {
-        if (!$request->isMethod('post'))
-        {
-            abort(404);
-        }
-
         return Categories::insertData($request);
-
     }
 
+    /**
+     * 显示分类列表
+     * @Author   Yexk       <yexk@carystudio.com>
+     * @DateTime 2017-07-08
+     * @return   Object     返回视图
+     */
     public function lists()
     {
         $cate = Categories::getAll(['id','name','pid','description']);
     	return view('back/categories/lists',['cate' => $cate]);
     }
 
+    /**
+     * 修改和编辑操作。
+     * @Author   Yexk       <yexk@carystudio.com>
+     * @DateTime 2017-07-08
+     * @param    Request    $request              请求对象
+     * @return   Object                           返回结果（状态）
+     */
     public function edits(Request $request)
     {
         if ('true' === $request->get('_delete'))

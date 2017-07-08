@@ -19,7 +19,7 @@
               文章分类管理
             </span>
             <span class="label label-info span-sidebar">
-              3
+              2
             </span>
           </a>
           <ul class="sub">
@@ -33,44 +33,14 @@
                 分类列表
               </a>
             </li>
-            <li>
-              <a href="advanced_form_components.html">
-                Advanced Components
-              </a>
-            </li>
-            <li>
-              <a href="form_wizard.html">
-                Form Wizards
-              </a>
-            </li>
-            <li>
-              <a href="form_validation.html">
-                Form Validation
-              </a>
-            </li>
-            <li>
-              <a href="dropzone.html">
-                Dropzone File Upload
-              </a>
-            </li>
-            <li>
-              <a href="inline_editor.html">
-                Inline Editor
-              </a>
-            </li>
-            <li>
-              <a href="file_upload.html">
-                Multiple File Upload
-              </a>
-            </li>
           </ul>
         </li>
         <li class="sub-menu">
           <a href="javascript:;">
-            <i class="fa fa-laptop">
+            <i class="fa fa-book">
             </i>
             <span>
-              Layouts
+              文章管理
             </span>
             <span class="label label-success span-sidebar">
               4
@@ -78,13 +48,13 @@
           </a>
           <ul class="sub">
             <li>
-              <a href="boxed_page.html">
-                Boxed Page
+              <a href="{{ route('art.add') }}">
+                文章添加
               </a>
             </li>
             <li>
-              <a href="horizontal_menu.html">
-                Horizontal Menubar
+              <a href="{{ route('art.lists') }}">
+                文章列表
               </a>
             </li>
             <li>
