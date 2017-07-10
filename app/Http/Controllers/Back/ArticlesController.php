@@ -23,4 +23,15 @@ class ArticlesController extends Controller
         return Articles::insertData($request);
     }
 
+    public function lists(Request $request)
+    {
+        if ($request->ajax())
+        {
+            return Articles::getDataTableDatas($request);
+        }
+
+        return view('back/articles/lists');
+    }
+
+
 }

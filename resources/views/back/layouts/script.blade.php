@@ -4,7 +4,7 @@
 <script src="js/jquery.dcjqaccordion.2.7.js"></script><!-- ACCORDIN JS -->
 <script src="js/jquery.scrollTo.min.js" ></script><!-- SCROLLTO JS -->
 <script src="js/jquery.nicescroll.js" ></script><!-- NICESCROLL JS -->
-<script src="js/respond.min.js" ></script><!-- RESPOND JS -->
+<script src="js/respond.min.js" ></script><!-- RESPOND JS --> 
 <script src="js/jquery.sparkline.js"></script><!-- SPARKLINE JS -->
 <script src="js/sparkline-chart.js"></script><!-- SPARKLINE CHART JS -->
 <script src="js/common-scripts.js"></script><!-- BASIC COMMON JS -->

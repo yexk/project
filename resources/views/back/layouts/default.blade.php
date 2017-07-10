@@ -12,6 +12,8 @@
 	@yield('links')
 </head>
 <body>
+<section id="container" class="">
+
 @include('back.layouts.top')
 @include('back.layouts.nav')
       
@@ -27,7 +29,10 @@
 </section>
 <!-- END MAIN CONTENT -->
 
+
 @include('back.layouts.bottom')
+</section>
+@yield('others')
 @include('back.layouts.script')
 
 @yield('scripts')

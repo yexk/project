@@ -72,6 +72,8 @@
   </div>
 @stop
 
+
+@section('others')
 <!-- edit Modal -->
 <div class="modal fade" id="cate_edits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -139,6 +141,7 @@
     </div>
   </div>
 </div>
+@stop
 
 @section('scripts')
 <script src="js/jquery.validate.min.js"></script><!-- VALIDATE JS  -->

@@ -1,117 +1,51 @@
 @extends('back.layouts.default')
 
 @section('title')
-文章分类列表
+文章列表
 @stop
 
 @section('links')
-  <link href="css/table-responsive.css" rel="stylesheet"><!-- TABLE RESPONSIVE CSS -->
-  <style>
-    .div_confirm_msg{height: 29px;line-height: 29px;}
-  </style>
+<!-- <link href="assets/datatables/css/jquery.dataTables.min.css" rel="stylesheet"><!-- ADVANCED DATATABLE CSS -->
+<link href="assets/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet"><!-- ADVANCED DATATABLE CSS -->
+
 @stop
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12">
-      <section class="panel">
+  <div class="col-lg-12">
+     <section class="panel">
         <header class="panel-heading">
-          <span class="label label-primary"> 文章分类列表 </span>
+           <span class="label label-primary">文章列表</span>
+           <span class="tools pull-right">
+           <a href="javascript:;" class="fa fa-chevron-down"></a>
+           <a href="javascript:;" class="fa fa-times"></a>
+           </span>
         </header>
         <div class="panel-body">
-          <section id="no-more-tables">
-            <table class="table table-bordered table-striped table-condensed cf">
-              <thead class="cf">
-                <tr>
-                  <th>
-                    Id
-                  </th>
-                  <th style="display: none;">
-                    父级ID
-                  </th>
-                  <th>
-                    名称
-                  </th>
-                  <th>
-                    描述
-                  </th>
-                  <th>
-                  操作
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-              
-                @foreach ($cate as $v)
-                <tr>
-                  <td data-title="Id">
-                    {{ $v->id }}
-                  </td>
-                  <td data-title="父级ID" style="display: none;">
-                    {{ $v->pid }}
-                  </td>
-                  <td data-title="名称">
-                    {{ str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v->level) }}  {{ $v->name }}
-                  </td>
-                  <td data-title="描述">
-                    {{ $v->description }}
-                  </td>
-                  <td data-title="操作">
-                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-info" data-toggle="modal" data-target="#cate_edits"> edit </button>
-                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-danger" data-toggle="modal" data-target="#cate_delelte"> delete </button>
-                  </td>
-                </tr>
-                @endforeach
-                
-              </tbody>
-            </table>
-          </section>
+           <div class="adv-table">
+              <table class="display table table-bordered table-striped" id="show_art_lists">
+                 <thead>
+                    <tr>
+                       <th>ID</th>
+                       <th>分类名称</th>
+                       <th>标题</th>
+                       <th>作者</th>
+                       <th>状态</th>
+                       <th>发布时间</th>
+                       <th>创建时间</th>
+                       <th>更新时间</th>
+                       <th>操作</th>
+                    </tr>
+                 </thead>
+              </table>
+           </div>
         </div>
-      </section>
-    </div>
-  </div>
-@stop
-
-<!-- edit Modal -->
-<div class="modal fade" id="cate_edits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">编辑列表</h4>
-      </div>
-      <form class="cmxform" id="edit_submit">
-      <div class="modal-body">
-          {{ csrf_field() }}
-          <input type="hidden" name="edit_id" id="edit_id" >
-          <div class="form-group">
-            <label for="edit_cate_pname" class="control-label">上级名称:</label>
-            <select class="form-control" name="edit_cate_pname" id="edit_cate_pname" disabled="disabled">
-              <option value="0">顶级分类</option>
-              @foreach ($cate as $v)
-                <option value="{{ $v->id }}">{{ $v->name }}</option>
-              @endforeach
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="edit_cate_name" class="control-label">名称:</label>
-            <input type="text" class="form-control" id="edit_cate_name" name="edit_cate_name">
-          </div>
-          <div class="form-group">
-            <label for="edit_cate_description" class="control-label">描述:</label>
-            <input type="text" class="form-control" id="edit_cate_description" name="edit_cate_description"></input>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="submit" class="btn btn-primary">提交修改</button>
-      </div>
-      </form>
-    </div>
+     </section>
   </div>
 </div>
+@stop
 
-
+@section('others')
 <!-- Modal -->
 <div class="modal fade" id="cate_delelte" tabindex="-1" role="dialog" aria-labelledby="myDelModalLabel">
   <div class="modal-dialog" role="document">
@@ -139,110 +73,62 @@
     </div>
   </div>
 </div>
+@stop
 
 @section('scripts')
-<script src="js/jquery.validate.min.js"></script><!-- VALIDATE JS  -->
-<script src="js/form-validation-script.js" ></script><!-- FORM VALIDATION SCRIPT JS  -->
-<script src="js/bootstrap-switch.js" ></script> <!-- BOOTSTRAP SWITCH JS  -->
-<script>
-$(function(){
-  // 显示模态窗口的数据
-  $('#cate_edits').on('show.bs.modal', function (event) {
-    var edit_btn_obj = $(event.relatedTarget);
-    var edit_td_obj = edit_btn_obj.parent('td').siblings('td');
-    $("#edit_id").val(edit_btn_obj.data('id'));
-    $("#edit_cate_pname").val($.trim( $(edit_td_obj[1]).text() ));
-    $('#edit_cate_name').val( $.trim( $(edit_td_obj[2]).text() ) );
-    $('#edit_cate_description').val($.trim( $(edit_td_obj[3]).text() ) );
-  });
-
-  // 提交表单
-  var $cate_add = $('#edit_submit');
-  $cate_add.validate({
-    rules: {
-        edit_cate_name: "required",
+<script src="assets/datatables/js/jquery.dataTables.min.js"></script>
+<script src="assets/datatables/js/dataTables.bootstrap.min.js"></script>
+<script >
+$(function() {
+  $('#show_art_lists').DataTable({
+    serverSide: true,//分页，取数据等等的都放到服务端去  http://www.cnblogs.com/sheldon-lou/p/4179002.html
+    processing: true,//载入数据的时候是否显示“载入中”
+    pageLength: 10,//首次加载的数据条数
+    // ordering: false,//排序操作在服务端进行，所以可以关了。
+    ajax: {//类似jquery的ajax参数，基本都可以用。
+      type: "get",//后台指定了方式，默认get，外加datatable默认构造的参数很长，有可能超过get的最大长度。
+      url: "{{ route('art.lists') }}",
+      // dataSrc: "data",//默认data，也可以写其他的，格式化table的时候取里面的数据
+      /*data: function (d) {//d 是原始的发送给服务器的数据，默认很长。
+          var param = {};//因为服务端排序，可以新建一个参数对象
+          param.start = d.start;//开始的序号
+          param.length = d.length;//要取的数据的
+          var formData = $("#filter_form").serializeArray();//把form里面的数据序列化成数组
+          formData.forEach(function (e) {
+              param[e.name] = e.value;
+          });
+          return param;//自定义需要传递的参数。
+      },*/
     },
-    messages: {
-        edit_cate_name: '分类名称不能为空！',
-    },
-    submitHandler:function () {
-      $.ajax({
-        url: "{{ route('cate.edits') }}",
-        type: 'POST',
-        dataType: 'JSON',
-        data: $cate_add.serialize(),
-        success: function(data) {
-          if (1 == data.code) {
-            location.href = location.href;
-          }
+    columns: [
+        { data: "id", },
+        { data: "cate_id", },
+        { data: "title", },
+        { data: "user_id", },
+        { data: "status", },
+        { data: "public_at", },
+        { data: "created_at", },
+        { data: "updated_at", },
+        { data: "id",},
+        
+    ],
+    language: {
+      lengthMenu: '<select class="form-control input-xsmall">' + '<option value="5">5</option>' + '<option value="10">10</option>' + '<option value="20">20</option>' + '<option value="30">30</option>' + '<option value="40">40</option>' + '<option value="50">50</option>' + '</select>条记录',//左上角的分页大小显示。
+        processing: "正在加载中...",//处理页面数据的时候的显示
+        paginate: {//分页的样式文本内容。
+           previous: "上一页",
+           next: "下一页",
+           first: "第一页",
+           last: "最后一页"
         },
-        error: function(data) {
-          if (4 == data.readyState && 422 == data.status) {
-            var responseText = JSON.parse(data.responseText);
-            $('[name="edit_cate_name"]').next().show().html(responseText.name[0]);
-          }
-        }
-      });
+        zeroRecords: "没有内容",//table tbody内容为空时，tbody的内容。
+        //下面三者构成了总体的左下角的内容。
+        info: "总共_PAGES_ 页，显示第_START_ 到第 _END_ ，筛选之后得到 _TOTAL_ 条，初始_MAX_ 条 ",//左下角的信息显示，大写的词为关键字。
+        infoEmpty: "0条记录",//筛选为空时左下角的显示。
+        infoFiltered: ""//筛选之后的左下角筛选提示(另一个是分页信息显示，在上面的info中已经设置，所以可以不显示)，
     }
   });
-
-
-  $('#cate_delelte').on('show.bs.modal', function (event) {
-    var delete_btn_obj = $(event.relatedTarget);
-    $('#btn_cate_delete').data('id',delete_btn_obj.data('id'));
-    $('#_force').parent('div').hide();
-    $('#div_confirm_msg').html('确定要删除吗？');
-  });
-  $('#btn_cate_delete').on('click', function(event) {
-    var data = {};
-    data.delete_id = $(this).data('id');
-    data._token = Config._token;
-    data._delete = true;
-    data._force = $('#_force').bootstrapSwitch('status');
-      $.ajax({
-        url: "{{ route('cate.edits') }}",
-        type: 'POST',
-        dataType: 'JSON',
-        data: data,
-        success: function(data) {
-          if (1 == data.code) {
-            $('#cate_delelte').modal('hide');
-            swal({
-              title: "删除成功",
-              text: "",
-              type: "success",
-            },function(){
-              location.href = location.href;
-            });
-          }else if(2 == data.code){
-            $('#_force').parent('div').show();
-            $('#div_confirm_msg').css('color', 'red').html('该元素存在子集，请确定是否要强制删除（该操作会同时删除存在的子集）');
-          }else{
-            swal({
-              title: "未知异常",
-              text: '',
-              type: "error",
-            })
-          }
-        },
-        error: function(data) {
-          if (4 == data.readyState && 422 == data.status) {
-            var responseText = JSON.parse(data.responseText);
-            swal({
-              title: "未知异常",
-              text: responseText,
-              type: "error",
-            },function(){
-
-            });
-          }
-        }
-      });
-    
-
-  }); 
-
-
 });
 </script>
+
 @stop
