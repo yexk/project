@@ -67,6 +67,13 @@ class Categories extends Model
         return $result;
     }
 
+    /**
+     * 删除操作。强制删除使用了递归删除。
+     * @Author   Yexk       <yexk@carystudio.com>
+     * @DateTime 2017-07-11
+     * @param    [type]     $request              [description]
+     * @param    boolean    $force                [description]
+     */
     public static function setDelete($request , $force = false)
     {
         $result = [ 'code' => '0' , 'msg'=> '未知错误！' , 'data' => '' ];

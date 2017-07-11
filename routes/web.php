@@ -31,5 +31,6 @@ Route::group(['prefix' => 'yexk'], function () {
     Route::get('/art/add','Back\ArticlesController@add')->name('art.add');
     Route::get('/art/lists','Back\ArticlesController@lists')->name('art.lists');
     Route::post('/art/store', 'Back\ArticlesController@store')->name('art.store');
+    Route::match(['get', 'post'],'/art/{id}/lists','Back\ArticlesController@edited')->where('id', '[0-9]+')->name('art.edited');
 
 });
