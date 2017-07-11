@@ -124,8 +124,8 @@ class Articles extends Model
         $data['recordsFiltered'] = $sql_where->count();
 
         $data['data'] = $sql_where->offset($res_data['start'])->limit($res_data['length'])->orderBy('created_at','DESC')->get()->each(function ($item) {
-                            $item['user_id'] = $item->userInfo->name;
-                            $item['cate_id'] = $item->categories->name;
+                            $item['user_id'] = $item->userInfo ? $item->userInfo->name : '匿名';
+                            $item['cate_id'] = $item->categories ? $item->categories->name : '未知分类';
                             $item['edited'] = route('art.edited',['id'=>$item->id]);
                         });
 

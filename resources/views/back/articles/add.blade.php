@@ -79,7 +79,6 @@
 
 @section('scripts')
 <script src="js/jquery.validate.min.js"></script><!-- VALIDATE JS  -->
-<script src="js/form-validation-script.js" ></script><!-- FORM VALIDATION SCRIPT JS  -->
 <script src="js/jquery.tagsinput.js" ></script> <!-- TAGS INPUT JS  -->
 <script src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script><!-- BOOTSTRAP DATETIMEPICKER JS  -->
 <script src="/common/js/editormd.js"></script><!-- SWEETALERT JS -->
@@ -93,9 +92,16 @@ $(function(){
       format: 'yyyy-mm-dd hh:ii'
   });
   art_content = editormd("content", {
-      height  : 600,
+      height  : 550,
+      placeholder:'从这里开始写吧。。。',
       syncScrolling : "single",
-      path    : "/common/js/lib/"
+      path    : "/common/js/lib/",
+      toolbarIcons : function() {
+        return ["undo", "redo", "|","bold","del","hr","quote", "|", "table","reference-link","image","code","datetime","|","html-entities", "||", "watch", "preview"];
+      },
+      imageUpload    : true,
+      imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+      imageUploadURL : "{{ route('art.lists') }}",
   });
     
 

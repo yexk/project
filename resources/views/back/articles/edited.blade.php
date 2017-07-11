@@ -25,7 +25,7 @@
               <div class="form-group">
                  <label class="col-sm-2 col-sm-2 control-label"> 文章分类 </label>
                  <div class="col-sm-10">
-                    <select name="cate_id" class="form-control" value="{{ $art->cate_id }}">
+                    <select name="cate_id" class="form-control">
                        @foreach ($cate as $v)
                          <option value="{{ $v->id }}">{{ str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v->level) }} {{ $v->name }}</option>
                        @endforeach
@@ -82,13 +82,15 @@
 
 @section('scripts')
 <script src="js/jquery.validate.min.js"></script><!-- VALIDATE JS  -->
-<script src="js/form-validation-script.js" ></script><!-- FORM VALIDATION SCRIPT JS  -->
 <script src="js/jquery.tagsinput.js" ></script> <!-- TAGS INPUT JS  -->
 <script src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script><!-- BOOTSTRAP DATETIMEPICKER JS  -->
 <script src="/common/js/editormd.js"></script><!-- SWEETALERT JS -->
 <script>
 var art_content;
 $(function(){
+  // 编辑初始化的时候就赋值
+  $('[name="cate_id"]').val({{ $art->cate_id }});
+
   $(".tagsinput").tagsInput();
   $(".form_datetime").datetimepicker({
       todayBtn: true,
@@ -96,9 +98,15 @@ $(function(){
       format: 'yyyy-mm-dd hh:ii'
   });
   art_content = editormd("content", {
-      height  : 600,
+      height  : 550,
       syncScrolling : "single",
-      path    : "/common/js/lib/"
+      path    : "/common/js/lib/",
+      toolbarIcons : function() {
+        return ["undo", "redo", "|","bold","del","hr","quote", "|", "table","reference-link","image","code","datetime","|","html-entities", "||", "watch", "preview"];
+      },
+      imageUpload    : true,
+      imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+      imageUploadURL : "{{ route('art.lists') }}",
   });
     
   $('input[name="title"]').on('focus', function(event) {
