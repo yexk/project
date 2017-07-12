@@ -17,7 +17,8 @@ class CreateUserTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('username');
-            $table->char('password',32);
+            $table->string('password');
+            $table->string('email');
             $table->unsignedTinyInteger('status')->default('1')->comment('0->delete,1->normal');;
             $table->timestamp('register');
             $table->timestamp('last_login');

@@ -4,18 +4,15 @@
     <!-- BEGIN META -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Custom Theme">
     <!-- END META -->
-    
     <!-- BEGIN SHORTCUT ICON -->
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     <!-- END SHORTCUT ICON -->
     <title>
-      Olive Admin - Flat & Responsive Bootstrap Admin Template
+      登陆 - Yexk
     </title>
     <!-- BEGIN STYLESHEET-->
-	    <base href="back/">
+    <base href="back/">
 		<link href="css/bootstrap.min.css" rel="stylesheet"><!-- BOOTSTRAP CSS -->
 		<link href="css/bootstrap-reset.css" rel="stylesheet"><!-- BOOTSTRAP CSS -->
 		<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet"><!-- FONT AWESOME ICON CSS -->
@@ -32,25 +29,26 @@
   <body class="login-screen">
     <!-- BEGIN SECTION -->
     <div class="container">
-      <form class="form-signin" action="index.html">
+      <form class="form-signin" method="POST" action="{{ route('login') }}">
+        {{ csrf_field() }}
         <h2 class="form-signin-heading">
-          sign in now
+          Yexk-blog 后台管理
         </h2>
 		<!-- LOGIN WRAPPER  -->
         <div class="login-wrap">
-          <input type="text" class="form-control" placeholder="User ID" autofocus>
-          <input type="password" class="form-control" placeholder="Password">
+          <input name="username" type="text" class="form-control" placeholder="用户名" autofocus>
+          <input name="password" type="password" class="form-control" placeholder="密码">
           <label class="checkbox">
-            <input type="checkbox" value="remember-me">
-            Remember me
+            <input type="checkbox" name="remember" value="remember">
+            记住密码
             <span class="pull-right">
               <a data-toggle="modal" href="#myModal">
-                Forgot Password?
+                忘记密码
               </a>
             </span>
           </label>
           <button class="btn btn-lg btn-login btn-block" type="submit">
-            Sign in
+            登陆
           </button>
           <p>
             or you can sign in via social network
@@ -67,12 +65,6 @@
               Twitter
             </a>
           </div>
-          <div class="registration">
-            Don't have an account yet?
-            <a class="" href="registration.html">
-              Create an account
-            </a>
-          </div>
         </div>
 		<!-- END LOGIN WRAPPER -->
 		<!-- MODAL -->
@@ -84,21 +76,21 @@
                   &times;
                 </button>
                 <h4 class="modal-title">
-                  Forgot Password ?
+                  忘记密码？
                 </h4>
               </div>
               <div class="modal-body">
                 <p>
-                  Enter your e-mail address below to reset your password.
+                  请输入你的邮箱地址，通过邮箱验证重置密码。
                 </p>
-                <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                <input type="text" name="email" placeholder="找回账号绑定的邮箱" autocomplete="off" class="form-control placeholder-no-fix">
               </div>
               <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-default" type="button">
-                  Cancel
+                  取消
                 </button>
                 <button class="btn btn-success" type="button">
-                  Submit
+                  找回密码
                 </button>
               </div>
             </div>

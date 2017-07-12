@@ -18,6 +18,9 @@ Route::get('/','Index\IndexController@index')->name('/');
 // backend
 Route::group(['prefix' => 'yexk'], function () {
     Route::get('/', 'Back\LoginController@index')->name('/');
+    // login 
+    Route::post('login', 'Back\LoginController@loginCheck')->name('login');
+
     // home 
     Route::get('/home', 'Back\HomeController@index')->name('home');
 

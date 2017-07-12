@@ -14,8 +14,8 @@ class UsersTableSeeder extends Seeder
         $data = [];
         $data['name'] = 'admin';
         $data['username'] = 'admin';
-        $data['password'] = md5('admin');
-        $data['password'] = md5('admin');
+        $data['password'] = encrypt('admin');
+        $data['email'] = 'admin@yexk.cn';
         $data['last_login_ip'] = '127.0.0.1';
         $data['register'] = date('Y-m-d H:i:s');
         $data['last_login'] = date('Y-m-d H:i:s');

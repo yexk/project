@@ -26,6 +26,6 @@ class CreateArtLabelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('label');
+        Schema::dropIfExists('art_label');
     }
 }
