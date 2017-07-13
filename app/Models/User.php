@@ -16,7 +16,7 @@ class User extends Model
      * @Author   Yexk       <yexk@carystudio.com>
      * @DateTime 2017-07-12
      * @param    [type]     $request              [description]
-     * @return   [type]                           [description]
+     * @return   [type]                           [失败返回false，成功返回登陆信息]
      */
     public static function loginCheck($request)
     {
@@ -26,10 +26,14 @@ class User extends Model
         }
         $username = trim($request->username);
         $password = trim($request->password);
-        $user_info = self::where('username',$username)->orWhere('email',$username)->first();
+        $user_info = self::where('username',$username)->where('status',1)->orWhere('email',$username)->first();
         if ($user_info)
         {
-            return $password === decrypt($user_info->password);
+            if ($password === decrypt($user_info->password))
+            {
+                unset($user_info['password']);
+                return $user_info;
+            }
         }
 
         return false;
