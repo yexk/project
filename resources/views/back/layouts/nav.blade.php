@@ -43,7 +43,7 @@
               文章管理
             </span>
             <span class="label label-success span-sidebar">
-              4
+              2
             </span>
           </a>
           <ul class="sub">
@@ -57,14 +57,43 @@
                 文章列表
               </a>
             </li>
+          </ul>
+        </li>
+        <li class="sub-menu">
+          <a href="javascript:;">
+            <i class="fa fa-cogs">
+            </i>
+            <span>
+              系统管理
+            </span>
+            <span class="label label-primary span-sidebar">
+              5
+            </span>
+          </a>
+          <ul class="sub">
             <li>
-              <a href="language_switch_bar.html">
-                Language Bar
+              <a href="{{ route('users.lists') }}">
+                用户管理
               </a>
             </li>
             <li>
-              <a href="email_template.html" target="_blank">
-                Email Templates
+              <a href="calendar.html">
+                Calendar
+              </a>
+            </li>
+            <li>
+              <a href="gallery.html">
+                Gallery
+              </a>
+            </li>
+            <li>
+              <a href="todo_list.html">
+                Todo List
+              </a>
+            </li>
+            <li>
+              <a href="draggable_portlet.html">
+                Draggable Portlets
               </a>
             </li>
           </ul>

@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class CategoriesController extends Controller
 {
+    function __construct()
+    {
+       $this->middleware('authCheck');
+    }
+
+    
     /**
      * 显示添加的页面
      * @Author   Yexk       <yexk@carystudio.com>

@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 
 class ArticlesController extends Controller
 {
+    function __construct()
+    {
+       $this->middleware('authCheck',['index']);
+    }
+    
     //
     public function add()
     {
