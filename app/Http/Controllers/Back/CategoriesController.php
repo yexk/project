@@ -17,7 +17,7 @@ class CategoriesController extends Controller
     
     /**
      * 显示添加的页面
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-05
      */
     public function add()
@@ -40,7 +40,7 @@ class CategoriesController extends Controller
 
     /**
      * 显示分类列表
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-08
      * @return   Object     返回视图
      */
@@ -52,7 +52,7 @@ class CategoriesController extends Controller
 
     /**
      * 修改和编辑操作。
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-08
      * @param    Request    $request              请求对象
      * @return   Object                           返回结果（状态）

@@ -16,28 +16,18 @@
     <div class="col-lg-12">
       <section class="panel">
         <header class="panel-heading">
-        <button class="btn btn-info"> 添加用户 </button>
+        <button class="btn btn-info" id="add_user" > 添加用户 </button>
         </header>
         <div class="panel-body">
           <section id="no-more-tables">
             <table class="table table-bordered table-striped table-condensed cf">
               <thead class="cf">
                 <tr>
-                  <th>
-                    Id
-                  </th>
-                  <th style="display: none;">
-                    父级ID
-                  </th>
-                  <th>
-                    名称
-                  </th>
-                  <th>
-                    描述
-                  </th>
-                  <th>
-                  操作
-                  </th>
+                  <th> Id </th>
+                  <th> 用户名 </th>
+                  <th> 昵称 </th>
+                  <th> 邮箱</th>
+                  <th> 操作 </th>
                 </tr>
               </thead>
               <tbody>
@@ -47,18 +37,18 @@
                   <td data-title="Id">
                     {{ $v->id }}
                   </td>
-                  <td data-title="父级ID" style="display: none;">
-                    {{ $v->pid }}
+                  <td data-title="用户名">
+                    {{ $v->username }}
                   </td>
-                  <td data-title="名称">
-                    {{ str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v->level) }}  {{ $v->name }}
+                  <td data-title="昵称">
+                    {{ $v->name }}
                   </td>
-                  <td data-title="描述">
-                    {{ $v->description }}
+                  <td data-title="邮箱">
+                    {{ $v->email }}
                   </td>
                   <td data-title="操作">
-                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-info" data-toggle="modal" data-target="#cate_edits"> edit </button>
-                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-danger" data-toggle="modal" data-target="#cate_delelte"> delete </button>
+                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-info" data-toggle="modal" data-target="#user_edits"> 编辑 </button>
+                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-danger" data-toggle="modal" data-target="#user_delelte"> 删除 </button>
                   </td>
                 </tr>
                 @endforeach
@@ -74,6 +64,40 @@
 
 
 @section('others')
+<!-- add modal -->
+<div class="modal fade" id="modal_add_user" tabindex="-1" role="dialog" aria-labelledby="modal_user">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal_user">添加用户</h4>
+      </div>
+      <form class="cmxform" onsubmit="return false">
+      <div class="modal-body">
+          {{ csrf_field() }}
+          <input type="hidden" name="edit_id" id="edit_id" >
+          <div class="form-group">
+            <label for="add_username" class="control-label">用户名：</label>
+            <input type="text" class="form-control" id="add_username" name="add_username">
+          </div>
+          <div class="form-group">
+            <label for="add_password" class="control-label">密码：</label>
+            <input type="password" class="form-control" id="add_password" name="add_password">
+          </div>
+          <div class="form-group">
+            <label for="add_repassword" class="control-label">确认密码：</label>
+            <input type="password" class="form-control" id="add_repassword" name="add_repassword">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button id="add_user_submit" type="button" class="btn btn-primary">提交修改</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- edit Modal -->
 <div class="modal fade" id="cate_edits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -146,6 +170,53 @@
 <script src="js/bootstrap-switch.js" ></script> <!-- BOOTSTRAP SWITCH JS  -->
 <script>
 $(function(){
+  // 显示添加用户
+  $('#add_user').on('click', function(event) {
+    event.preventDefault();
+    $('#modal_add_user').modal();
+  });
+  // 提交用户添加的数据
+  $('#add_user_submit').on('click', function(event) {
+    event.preventDefault();
+    var data       = {};
+    var username   = $('#add_username').val();
+    var password   = $('#add_password').val();
+    var repassword = $('#add_repassword').val();
+    if ('' == username || '' == password || '' == repassword) {
+      swal({
+        title: "用户名或者密码不能为空！",
+        type: "error",
+      });
+      return false;
+    }
+    if (password !== repassword) {
+      swal({
+        title: "两次密码不一样！",
+        type: "error",
+      });
+      return false;
+    }
+    data.username = username;
+    data.password = password;
+    data._token = Config._token;
+    $.ajax({
+      url: "{{ route('users.add') }}",
+      type: 'POST',
+      dataType: 'json',
+      data: data,
+      success:function(data){
+        if (1 == data.code) {
+          location.href = location.href;
+        }else{
+          swal({
+            title: data.msg,
+            type: "error",
+          });
+        }
+      }
+    })
+  });
+
   // 显示模态窗口的数据
   $('#cate_edits').on('show.bs.modal', function (event) {
     var edit_btn_obj = $(event.relatedTarget);

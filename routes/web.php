@@ -38,6 +38,7 @@ Route::group(['prefix' => 'yexk'], function () {
 
     // user manger
     Route::get('/users/lists','Back\UsersController@lists')->name('users.lists');
+    Route::post('/users/add','Back\UsersController@add')->name('users.add');
     
     
 });

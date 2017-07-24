@@ -103,7 +103,7 @@ class Articles extends Model
 
     /**
      * 获取文章用于列表展示。（携带标题搜索功能）
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Object     $request              请求数据
      * @return   Array                            状态信息
@@ -135,7 +135,7 @@ class Articles extends Model
 
     /**
      * 删除数据。改变状态值。（软删除）
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Object     $request              请求数据
      * @return   Array                            状态信息

@@ -24,7 +24,7 @@ class ArticlesController extends Controller
 
     /**
      * 添加文章
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-10
      * @param    Article    $request              文章请求数据
      * @return   Object                           返回状态
@@ -36,7 +36,7 @@ class ArticlesController extends Controller
 
     /**
      * 文章列表展示，还要里面的操作（删除，查看）
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Request    $request              [description]
      * @return   [type]                           [description]
@@ -65,7 +65,7 @@ class ArticlesController extends Controller
 
     /**
      * 编辑视图的显示，还有编辑的数据的保存
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Request    $request              [description]
      * @param    [type]     $id                   [description]

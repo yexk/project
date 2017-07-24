@@ -13,12 +13,12 @@
         </li>
         <li class="sub-menu">
           <a href="javascript:;">
-            <i class="fa fa-tasks">
+            <i class="fa fa-book">
             </i>
             <span>
-              文章分类管理
+              文章管理
             </span>
-            <span class="label label-info span-sidebar">
+            <span class="label label-success span-sidebar">
               2
             </span>
           </a>
@@ -33,20 +33,6 @@
                 分类列表
               </a>
             </li>
-          </ul>
-        </li>
-        <li class="sub-menu">
-          <a href="javascript:;">
-            <i class="fa fa-book">
-            </i>
-            <span>
-              文章管理
-            </span>
-            <span class="label label-success span-sidebar">
-              2
-            </span>
-          </a>
-          <ul class="sub">
             <li>
               <a href="{{ route('art.add') }}">
                 文章添加

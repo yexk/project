@@ -51,7 +51,7 @@ class LoginController extends Controller
 
     /**
      * 检测用户登陆（并且设置cookie和session）
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-12
      * @param    Request    $request              [表单数据]
      * @return   [type]                           [跳转]
