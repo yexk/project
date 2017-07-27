@@ -16,7 +16,7 @@
     <div class="col-lg-12">
       <section class="panel">
         <header class="panel-heading">
-        <button class="btn btn-info" id="add_user" > 添加用户 </button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#modal_add_user" > 添加用户 </button>
         </header>
         <div class="panel-body">
           <section id="no-more-tables">
@@ -47,8 +47,11 @@
                     {{ $v->email }}
                   </td>
                   <td data-title="操作">
-                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-info" data-toggle="modal" data-target="#user_edits"> 编辑 </button>
-                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-danger" data-toggle="modal" data-target="#user_delelte"> 删除 </button>
+                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-info" data-toggle="modal" data-target="#user_edits"> 重置密码 </button>
+                    @if ( 1 != $v->id )
+                    <button data-id="{{ $v->id }}" type="button" class="btn btn-sm btn-round btn-info" data-toggle="modal" data-target="#user_modify"> 编辑 </button>
+                    <button data-id="{{ $v->id }}" data-username="{{ $v->username }}" type="button" class="btn btn-sm btn-round btn-danger" onclick="user_delelte(this)"> 删除 </button>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -74,8 +77,6 @@
       </div>
       <form class="cmxform" onsubmit="return false">
       <div class="modal-body">
-          {{ csrf_field() }}
-          <input type="hidden" name="edit_id" id="edit_id" >
           <div class="form-group">
             <label for="add_username" class="control-label">用户名：</label>
             <input type="text" class="form-control" id="add_username" name="add_username">
@@ -91,77 +92,87 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button id="add_user_submit" type="button" class="btn btn-primary">提交修改</button>
+        <button id="add_user_submit" type="button" class="btn btn-primary">添加</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- user_modify modal -->
+<div class="modal fade" id="user_modify" tabindex="-1" role="dialog" aria-labelledby="modal_user">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modal_user">修改用户</h4>
+      </div>
+      <form class="cmxform" onsubmit="return false">
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="modify_username" class="control-label">用户名：</label>
+            <input type="text" class="form-control" id="modify_username" name="modify_username">
+            <input type="hidden" id="modify_id" name="modify_id">
+          </div>
+          <div class="form-group">
+            <label for="modify_name" class="control-label">昵称：</label>
+            <input type="text" class="form-control" id="modify_name" name="modify_name">
+          </div>
+          <div class="form-group">
+            <label for="modify_email" class="control-label">邮箱：</label>
+            <input type="text" class="form-control" id="modify_email" name="modify_email">
+          </div>
+          <div class="form-group">
+            <label for="modify_password" class="control-label">密码：</label>
+            <input type="password" class="form-control" id="modify_password" name="modify_password" placeholder="留空代表不修改密码">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button id="modify_user_submit" type="button" class="btn btn-primary">提交修改</button>
+      </div>
+    </div>
+    </form>
   </div>
 </div>
 
 
 <!-- edit Modal -->
-<div class="modal fade" id="cate_edits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="user_edits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">编辑列表</h4>
+        <h4 class="modal-title" id="myModalLabel">修改用户密码</h4>
       </div>
-      <form class="cmxform" id="edit_submit">
+      <form class="cmxform" onsubmit="return false">
       <div class="modal-body">
-          {{ csrf_field() }}
           <input type="hidden" name="edit_id" id="edit_id" >
           <div class="form-group">
-            <label for="edit_cate_pname" class="control-label">上级名称:</label>
-            <select class="form-control" name="edit_cate_pname" id="edit_cate_pname" disabled="disabled">
-              <option value="0">顶级分类</option>
-            </select>
+            <label for="edit_username" class="control-label">用户名：</label>
+            <input type="text" class="form-control" id="edit_username" name="edit_username" disabled="disabled">
           </div>
           <div class="form-group">
-            <label for="edit_cate_name" class="control-label">名称:</label>
-            <input type="text" class="form-control" id="edit_cate_name" name="edit_cate_name">
+            <label for="edit_old_password" class="control-label">原密码：</label>
+            <input type="password" class="form-control" id="edit_old_password" name="edit_old_password">
           </div>
           <div class="form-group">
-            <label for="edit_cate_description" class="control-label">描述:</label>
-            <input type="text" class="form-control" id="edit_cate_description" name="edit_cate_description"></input>
+            <label for="edit_new_password" class="control-label">新密码：</label>
+            <input type="password" class="form-control" id="edit_new_password" name="edit_new_password">
+          </div>
+          <div class="form-group">
+            <label for="edit_new_repassword" class="control-label">确认新密码：</label>
+            <input type="password" class="form-control" id="edit_new_repassword" name="edit_new_repassword">
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="submit" class="btn btn-primary">提交修改</button>
+        <button id="edit_user_submit" type="button" class="btn btn-primary">提交修改</button>
       </div>
-      </form>
+    </div>
     </div>
   </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="cate_delelte" tabindex="-1" role="dialog" aria-labelledby="myDelModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myDelModalLabel">提示</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-lg-2" style="display: none;">
-           <div class="switch" id="_force" data-on-label="是" data-off-label="否">
-             <input type="checkbox" data-toggle="switch" >
-           </div>
-          </div>
-          <div class="col-lg-10">
-            <div id="div_confirm_msg" class="div_confirm_msg" ></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button id="btn_cate_delete" type="button" class="btn btn-primary">确定删除</button>
-      </div>
-    </div>
-  </div>
-</div>
 @stop
 
 @section('scripts')
@@ -170,11 +181,6 @@
 <script src="js/bootstrap-switch.js" ></script> <!-- BOOTSTRAP SWITCH JS  -->
 <script>
 $(function(){
-  // 显示添加用户
-  $('#add_user').on('click', function(event) {
-    event.preventDefault();
-    $('#modal_add_user').modal();
-  });
   // 提交用户添加的数据
   $('#add_user_submit').on('click', function(event) {
     event.preventDefault();
@@ -217,103 +223,156 @@ $(function(){
     })
   });
 
-  // 显示模态窗口的数据
-  $('#cate_edits').on('show.bs.modal', function (event) {
+  $('#user_edits').on('show.bs.modal', function (event) {
     var edit_btn_obj = $(event.relatedTarget);
     var edit_td_obj = edit_btn_obj.parent('td').siblings('td');
     $("#edit_id").val(edit_btn_obj.data('id'));
-    $("#edit_cate_pname").val($.trim( $(edit_td_obj[1]).text() ));
-    $('#edit_cate_name').val( $.trim( $(edit_td_obj[2]).text() ) );
-    $('#edit_cate_description').val($.trim( $(edit_td_obj[3]).text() ) );
-  });
+    $("#edit_username").val($.trim( $(edit_td_obj[1]).text() ));
+  });  
 
-  // 提交表单
-  var $cate_add = $('#edit_submit');
-  $cate_add.validate({
-    rules: {
-        edit_cate_name: "required",
-    },
-    messages: {
-        edit_cate_name: '分类名称不能为空！',
-    },
-    submitHandler:function () {
-      $.ajax({
-        url: "{{ route('cate.edits') }}",
-        type: 'POST',
-        dataType: 'JSON',
-        data: $cate_add.serialize(),
-        success: function(data) {
-          if (1 == data.code) {
-            location.href = location.href;
-          }
-        },
-        error: function(data) {
-          if (4 == data.readyState && 422 == data.status) {
-            var responseText = JSON.parse(data.responseText);
-            $('[name="edit_cate_name"]').next().show().html(responseText.name[0]);
-          }
-        }
-      });
-    }
-  });
-
-
-  $('#cate_delelte').on('show.bs.modal', function (event) {
-    var delete_btn_obj = $(event.relatedTarget);
-    $('#btn_cate_delete').data('id',delete_btn_obj.data('id'));
-    $('#_force').parent('div').hide();
-    $('#div_confirm_msg').html('确定要删除吗？');
-  });
-  $('#btn_cate_delete').on('click', function(event) {
-    var data = {};
-    data.delete_id = $(this).data('id');
-    data._token = Config._token;
-    data._delete = true;
-    data._force = $('#_force').bootstrapSwitch('status');
-      $.ajax({
-        url: "{{ route('cate.edits') }}",
-        type: 'POST',
-        dataType: 'JSON',
-        data: data,
-        success: function(data) {
-          if (1 == data.code) {
-            $('#cate_delelte').modal('hide');
-            swal({
-              title: "删除成功",
-              text: "",
-              type: "success",
-            },function(){
-              location.href = location.href;
-            });
-          }else if(2 == data.code){
-            $('#_force').parent('div').show();
-            $('#div_confirm_msg').css('color', 'red').html('该元素存在子集，请确定是否要强制删除（该操作会同时删除存在的子集）');
-          }else{
-            swal({
-              title: "未知异常",
-              text: '',
-              type: "error",
-            })
-          }
-        },
-        error: function(data) {
-          if (4 == data.readyState && 422 == data.status) {
-            var responseText = JSON.parse(data.responseText);
-            swal({
-              title: "未知异常",
-              text: responseText,
-              type: "error",
-            },function(){
-
-            });
-          }
-        }
-      });
-    
-
-  }); 
-
-
+$('#user_modify').on('show.bs.modal', function (event) {
+    var edit_btn_obj = $(event.relatedTarget);
+    var edit_td_obj = edit_btn_obj.parent('td').siblings('td');
+    $("#modify_id").val(edit_btn_obj.data('id'));
+    $("#modify_username").val($.trim( $(edit_td_obj[1]).text() ));
+    $("#modify_name").val($.trim( $(edit_td_obj[2]).text() ));
+    $("#modify_email").val($.trim( $(edit_td_obj[3]).text() ));
 });
+
+    $('#modify_user_submit').on('click', function(event) {
+        event.preventDefault();
+        var data      = {};
+        data.id       = $("#modify_id").val();
+        data.username = $("#modify_username").val();
+        data.name     = $("#modify_name").val();
+        data.email    = $("#modify_email").val();
+        data.password = $("#modify_password").val();
+        data._token   = Config._token;
+        if (!data.id || !data.username || !data.name || !data.email) {
+            swal({
+            title: "资料不能为空！",
+            type: "error",
+          });
+          return false;
+        }
+        $.ajax({
+            url: "{{ route('users.add') }}",
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success:function(data){
+                if (1 == data.code) {
+                    location.href = location.href;
+                }else{
+                    swal({
+                        title: data.msg,
+                        type: "error",
+                    });
+                }
+            },
+            error: function(data) {
+              if (4 == data.readyState && 422 == data.status) {
+                var responseText = JSON.parse(data.responseText);
+                console.log(responseText);
+                swal(responseText.password[0],'','error');
+              }
+            }
+        });
+  });
+
+
+  // 提交修改的用户数据
+  $('#edit_user_submit').on('click', function(event) {
+    event.preventDefault();
+    var data = {}
+    var edit_old_password   = $('#edit_old_password').val();
+    var edit_new_password   = $('#edit_new_password').val();
+    var edit_new_repassword = $('#edit_new_repassword').val();
+    if (!edit_old_password || !edit_new_password || !edit_new_repassword) {
+       swal({
+        title: "密码不能为空！",
+          type: "error",
+        });
+        return false;
+    }
+    if (edit_new_password !== edit_new_repassword) {
+      swal({
+        title: "两次密码不一样！",
+        type: "error",
+      });
+      return false;
+    }
+    data.id = $("#edit_id").val();
+    data.modifypassword = 1;
+    data.oldpassword = $("#edit_old_password").val();
+    data.newpassword = $("#edit_new_password").val();
+    data._token = Config._token;
+    $.ajax({
+      url: "{{ route('users.add') }}",
+      type: 'POST',
+      dataType: 'json',
+      data: data,
+      success:function(data){
+        if (1 == data.code) {
+          swal({
+            title: data.msg,
+            type: "success",
+          },function(){
+            location.href = location.href;
+          });
+        }else{
+          swal({
+            title: data.msg,
+            type: "error",
+          });
+        }
+      }
+    });
+  });
+});
+
+function user_delelte(obj) {
+    var username = $(obj).data('username');
+    var data     = {};
+    data.id      = $(obj).data('id');
+    data.userdel = 1;
+    data._token  = Config._token;
+    swal({
+      title: "确定要删除吗？",
+      text: "该操作会删除【"+username+"】用户！",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      closeOnConfirm: false,
+    },function(isdel){
+        if (isdel) {
+            $.ajax({
+                url: "{{ route('users.add') }}",
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success:function(data){
+                    if (1 == data.code) {
+                    swal({
+                      title: "删除成功",
+                      text: "",
+                      type: "success",
+                    },function(){
+                      location.href = location.href;
+                    });
+                  }else{
+                    swal({
+                      title: "未知异常",
+                      text: '',
+                      type: "error",
+                    });
+                  }
+                }
+            });
+        }
+    });
+}
+
+
 </script>
 @stop
