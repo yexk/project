@@ -86,6 +86,30 @@
         </li>
         <li class="sub-menu">
           <a href="javascript:;">
+            <i class=" fa fa-envelope">
+            </i>
+            <span>
+              邮箱
+            </span>
+            <span class="label label-danger span-sidebar">
+              2
+            </span>
+          </a>
+          <ul class="sub">
+            <li>
+              <a href="{{ route('mail.inbox') }}">
+                邮箱列表
+              </a>
+            </li>
+            <li>
+              <a href="inbox_details.html">
+                邮箱详情
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="sub-menu">
+          <a href="javascript:;">
             <i class="fa fa-book">
             </i>
             <span>
@@ -207,30 +231,6 @@
             <li>
               <a href="editable_table.html">
                 Editable Table
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="sub-menu">
-          <a href="javascript:;">
-            <i class=" fa fa-envelope">
-            </i>
-            <span>
-              Mail
-            </span>
-            <span class="label label-danger span-sidebar">
-              2
-            </span>
-          </a>
-          <ul class="sub">
-            <li>
-              <a href="inbox.html">
-                Inbox
-              </a>
-            </li>
-            <li>
-              <a href="inbox_details.html">
-                Mail Details
               </a>
             </li>
           </ul>
