@@ -6,22 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class YexkMail extends Mailable
+class SendMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
-    public $title;
+    public $request;
+    public $subject;
     public $message;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data,$title,$message)
+    public function __construct($request, $subject, $message)
     {
-        $this->data = $data;
-        $this->title = $title;
+        $this->request = $request;
+        $this->subject = $subject;
         $this->message = $message;
     }
 
@@ -32,6 +33,6 @@ class YexkMail extends Mailable
      */
     public function build()
     {
-        return $this->view('back/email/message')->with($this->data)->with(['title'=>$this->title,'message'=>$this->message]);
+        return $this->subject($this->subject)->markdown('back.email.sendmessage');
     }
 }

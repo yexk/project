@@ -10,12 +10,20 @@ class LoginController extends Controller
 {
     function __construct()
     {
-//        $this->middleware('authCheck',['index']);
         $this->middleware(function ($request, $next) {
-            if( $cookie = $request->cookie('YEXK_USER') ){
-                if ( $this->setSession($request,$cookie) )
-                {
-                    return response()->redirectToRoute('home');
+            $session_user_id = $request->session()->get('YEXK_USERINFO_ID');
+            $cookie = $request->cookie('YEXK_USER');
+            if (!empty($session_user_id))
+            {
+                // has session
+                return response()->redirectToRoute('home');
+            }else{
+                // has not session bug has cookie
+                if( !empty($cookie) || !empty(json_encode($cookie)->id) ){
+                    if ( $this->setSession($request,$cookie) )
+                    {
+                        return response()->redirectToRoute('home');
+                    }
                 }
             }
             return $next($request);

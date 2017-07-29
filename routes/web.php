@@ -20,6 +20,7 @@ Route::group(['prefix' => 'yexk'], function () {
     Route::get('/', 'Back\LoginController@index')->name('/');
     // login 
     Route::post('login', 'Back\LoginController@loginCheck')->name('login');
+    Route::get('logout', 'Back\HomeController@logout')->name('logout');
 
     // home 
     Route::get('/home', 'Back\HomeController@index')->name('home');
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'yexk'], function () {
     
     // email manger
     Route::get('/mail/inbox','Back\EmailsController@inbox')->name('mail.inbox');
+    Route::post('/mail/send','Back\EmailsController@sendMail')->name('mail.send');
     
 
     

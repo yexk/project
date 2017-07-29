@@ -7,4 +7,7 @@ composer install
 composer dump-autoload	
 php artisan migrate
 php artisan db:seed
+# 启动队列服务器
+php artisan queue:work 
+
 ```

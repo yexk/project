@@ -17,8 +17,8 @@
         <img src="img/mail-avatar.jpg" alt="">
         </a>
         <div class="user-name">
-           <h5><a href="#">Pruthvi Bardolia</a></h5>
-           <span><a href="#">pruthvi@tripzmate.com</a></span>
+           <h5><a href="#">{{ config('mail.from.name') }}</a></h5>
+           <span><a href="#">{{ config('mail.from.address') }}</a></span>
         </div>
         <a href="javascript:;" class="mail-dropdown pull-right">
         <i class="fa fa-chevron-down"></i>
@@ -28,49 +28,55 @@
       <!-- INBOX BODY -->
      <div class="inbox-body">
         <a class="btn btn-compose" data-toggle="modal" href="#myModal">
-        Compose
+        写邮件
         </a>
         <div class="modal fade" id="myModal">
-           <div class="modal-dialog">
+           <div class="modal-dialog modal-lg">
               <div class="modal-content">
                  <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Compose</h4>
+                    <h4 class="modal-title">写邮件</h4>
                  </div>
                  <div class="modal-body">
-                    <form class="form-horizontal" role="form">
+                    <form id="sendmessage" class="form-horizontal" role="form">
                        <div class="form-group">
-                          <label class="col-lg-2 control-label">To</label>
+                          <label class="col-lg-2 control-label">收件人<i style="color:red">*</i></label>
                           <div class="col-lg-10">
-                             <input type="text" class="form-control" id="inputEmail1" placeholder="">
+                             <input type="text" class="form-control" id="to" placeholder="">
                           </div>
                        </div>
                        <div class="form-group">
-                          <label class="col-lg-2 control-label">Cc / Bcc</label>
+                          <label class="col-lg-2 control-label">抄送</label>
                           <div class="col-lg-10">
                              <input type="text" class="form-control" id="cc" placeholder="">
                           </div>
                        </div>
                        <div class="form-group">
-                          <label class="col-lg-2 control-label">Subject</label>
+                          <label class="col-lg-2 control-label">密送</label>
                           <div class="col-lg-10">
-                             <input type="text" class="form-control" id="inputPassword1" placeholder="">
+                             <input type="text" class="form-control" id="bcc" placeholder="">
                           </div>
                        </div>
                        <div class="form-group">
-                          <label class="col-lg-2 control-label">Message</label>
+                          <label class="col-lg-2 control-label">主题<i style="color:red">*</i></label>
                           <div class="col-lg-10">
-                             <textarea name="" id="test" class="form-control" cols="30" rows="10"></textarea>
+                             <input type="text" class="form-control" id="subject" placeholder="">
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <label class="col-lg-2 control-label">内容<i style="color:red">*</i></label>
+                          <div class="col-lg-10">
+                             <textarea name="" id="message" class="form-control" cols="30" rows="10"></textarea>
                           </div>
                        </div>
                        <div class="form-group">
                           <div class="col-lg-offset-2 col-lg-10">
-                             <span class="btn green fileinput-button">
+                             <!-- <span class="btn green fileinput-button">
                              <i class="fa fa-plus fa fa-white"></i>
-                             <span>Attachment</span>
+                             <span>附件</span>
                              <input type="file" multiple="" name="files[]">
-                             </span>
-                             <button type="submit" class="btn btn-send">Send</button>
+                             </span> -->
+                             <button type="submit" class="btn btn-send">发送</button>
                           </div>
                        </div>
                     </form>
@@ -448,4 +454,39 @@
 @stop
 
 @section('scripts')
+<script>
+$(function(){
+  $('#sendmessage').on('submit', function(event) {
+      event.preventDefault();
+      var data = {};
+      data._token = Config._token;
+      data.to = $('#to').val();
+      data.cc = $('#cc').val();
+      data.bcc = $('#bcc').val();
+      data.subject = $('#subject').val();
+      data.message = $('#message').val();
+      if ( !data.to || !data.subject || !data.message )
+      {
+        swal('带“*”号的为必填项','','error');
+        return false;
+      }
+      $.ajax({
+          url: '{{ route("mail.send") }}',
+          type: 'POST',
+          dataType: 'text',
+          data: data,
+          success:function(data){
+            swal({
+              title: '发送成功！',
+              text: '',
+              type: "success",
+            },function(){
+              location.href = location.href;
+            });
+          }
+      })
+      return false;
+  });
+});
+</script>
 @stop

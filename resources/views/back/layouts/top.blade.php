@@ -345,7 +345,7 @@
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <img alt="" src="img/avatar1_small.jpg">
             <span class="username">
-              Pruthvi
+              {{ json_decode(session('YEXK_USERINFO'))->name }}
             </span>
             <b class="caret">
             </b>
@@ -375,10 +375,10 @@
               </a>
             </li>
             <li>
-              <a href="login.html">
+              <a href="{{ route('logout') }}">
                 <i class="fa fa-key">
                 </i>
-                Log Out
+                退出登录
               </a>
             </li>
           </ul>

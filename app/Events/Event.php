@@ -31,7 +31,6 @@ class Event
      */
     public function broadcastOn()
     {
-        echo "broadcastOn-sdflkhasdkflahsglifuhg";
         return new PrivateChannel('channel-name');
     }
 }

@@ -367,11 +367,11 @@
           </ul>
         </li>
         <li>
-          <a href="login.html">
+          <a href="{{ route('logout') }}">
             <i class="fa fa-user">
             </i>
             <span>
-              Login Page
+              退出登录
             </span>
           </a>
         </li>
