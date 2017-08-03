@@ -7,6 +7,7 @@ use App\Models\Articles;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ArticlesController extends Controller
 {
@@ -61,6 +62,30 @@ class ArticlesController extends Controller
         }
 
         return view('back/articles/lists');
+    }
+
+    /**
+     * markdown图片上传
+     * @param Request $request
+     * @date   2017年8月3日
+     * @author Yexk <yexk@yexk.cn>
+     * @return array
+     */
+    public function uploadFiles(Request $request)
+    {
+        if ('1' == $request->get('file_upload'))
+        {
+            if ($request->file('editormd-image-file')->isValid())
+            {
+                $path = $request['editormd-image-file']->store('markdown_images/'.date('Ymd'),'public');
+                if ($path)
+                {
+                    return ['success'=>1,'message'=>'上传成功！','url'=>Storage::url($path)];
+                }
+                return ['success'=>0,'message'=>'上传失败!'];
+            }
+        }
+        return ['success'=>0,'message'=>'未知错误!'];
     }
 
     /**
