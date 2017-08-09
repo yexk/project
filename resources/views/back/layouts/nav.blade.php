@@ -110,6 +110,30 @@
         </li>
         <li class="sub-menu">
           <a href="javascript:;">
+            <i class=" fa fa-comments">
+            </i>
+            <span>
+              在线聊天
+            </span>
+            <span class="label label-danger span-sidebar">
+              2
+            </span>
+          </a>
+          <ul class="sub">
+            <li>
+              <a href="{{ route('chat.chats') }}">
+                聊天
+              </a>
+            </li>
+            <li>
+              <a href="inbox_details.html">
+                邮箱详情
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="sub-menu">
+          <a href="javascript:;">
             <i class="fa fa-book">
             </i>
             <span>

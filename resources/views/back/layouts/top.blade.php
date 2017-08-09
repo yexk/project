@@ -345,7 +345,7 @@
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <img alt="" src="img/avatar1_small.jpg">
             <span class="username">
-              {{ json_decode(session('YEXK_USERINFO'))->name }}
+              {{ session('YEXK_USERINFO') ? json_decode(session('YEXK_USERINFO'))->name : '' }}
             </span>
             <b class="caret">
             </b>

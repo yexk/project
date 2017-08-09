@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "245537507c0ac39c98206d4c8b7a4a94",
+    "content-hash": "d29da4bec6e688d7c736cf418627402d",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -4041,6 +4041,49 @@
                 "validate"
             ],
             "time": "2016-11-23T20:04:58+00:00"
+        },
+        {
+            "name": "workerman/workerman-for-win",
+            "version": "v3.4.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/workerman-for-win.git",
+                "reference": "546f059c058adb23bb2f309d6800b590fe432347"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/walkor/workerman-for-win/546f059c058adb23bb2f309d6800b590fe432347.zip",
+                "reference": "546f059c058adb23bb2f309d6800b590fe432347",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Workerman\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "walkor",
+                    "email": "walkor@workerman.net",
+                    "homepage": "http://www.workerman.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An asynchronous event driven PHP framework for easily building fast, scalable network applications.",
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "asynchronous",
+                "event-loop"
+            ],
+            "time": "2017-06-15T06:31:54+00:00"
         }
     ],
     "aliases": [],
