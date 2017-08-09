@@ -115,7 +115,7 @@ $(function(){
 
   // 提交表单
   var $art_edit = $('#art_edit');
-  $art_add.on('submit', function(event) {
+  $art_edit.on('submit', function(event) {
     event.preventDefault();
     if (!$('input[name="title"]').val()) {
         swal('标题不能为空！','','error');

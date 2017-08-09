@@ -26,6 +26,10 @@ class Workerman extends Command
      *
      * @return void
      */
+
+    protected $_globalUid = 0;
+    protected $_workerObj = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -39,38 +43,45 @@ class Workerman extends Command
     public function handle()
     {
         global $argv;
-        $argv[0]='workerman:work';
+        $argv[0]= __FILE__;
         $argv[1]=$this->argument('action');
         $argv[2]=$this->option('daemonize')?'-d':'';
 
         Worker::$stdoutFile = 'stdout.log';
 
         // echo $this->argument('action');
-        $ws_worker = new Worker("websocket://0.0.0.0:11104");
+        $this->_workerObj = new Worker("websocket://0.0.0.0:11104");
 
-// 4 processes
-        $ws_worker->count = 4;
+        // 4 processes
+        $this->_workerObj->count = 1;
 
-// Emitted when new connection come
-        $ws_worker->onConnect = function($connection)
+        // Emitted when new connection come
+        $this->_workerObj->onConnect = function($connection)
         {
-            echo "New connection.121212\n";
+            // 为这个链接分配一个uid
+            $connection->uid = ++$this->_globalUid;
         };
 
-// Emitted when data received
-        $ws_worker->onMessage = function($connection, $data)
+        // Emitted when data received
+        $this->_workerObj->onMessage = function($connection, $data)
         {
-            // Send hello $data
-            $connection->send('hello ' . $data);
+            foreach($this->_workerObj->connections as $conn)
+            {
+                $conn->send("user[{$connection->uid}] said: $data");
+            }
         };
 
-// Emitted when connection closed
-        $ws_worker->onClose = function($connection)
+        // Emitted when connection closed
+        $this->_workerObj->onClose = function($connection)
         {
-            echo "Connection closed12121212sdafdsaf\n";
+            foreach($this->_workerObj->connections as $conn)
+            {
+                $conn->send("user[{$connection->uid}] logout");
+            }
         };
 
-// Run worker
+        // Run worker
         Worker::runAll();
     }
+
 }
