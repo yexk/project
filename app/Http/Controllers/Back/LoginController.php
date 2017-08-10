@@ -78,7 +78,7 @@ class LoginController extends Controller
             {
                 $cookie = cookie('YEXK_USER',json_encode($user_info),10080);
             }
-
+            User::setUserIp($user_info->id,$request->getClientIp());
             return response()->redirectToRoute('home')->withCookie($cookie);
         }
         else

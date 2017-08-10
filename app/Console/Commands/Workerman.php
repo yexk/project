@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Redis;
 use Workerman\Worker;
 
 class Workerman extends Command
@@ -29,6 +30,7 @@ class Workerman extends Command
 
     protected $_globalUid = 0;
     protected $_workerObj = null;
+    protected $_onlineUser = [];
 
     public function __construct()
     {
@@ -47,12 +49,9 @@ class Workerman extends Command
         $argv[1]=$this->argument('action');
         $argv[2]=$this->option('daemonize')?'-d':'';
 
-        Worker::$stdoutFile = 'stdout.log';
-
-        // echo $this->argument('action');
         $this->_workerObj = new Worker("websocket://0.0.0.0:11104");
 
-        // 4 processes
+        // 1 processes
         $this->_workerObj->count = 1;
 
         // Emitted when new connection come
@@ -65,9 +64,27 @@ class Workerman extends Command
         // Emitted when data received
         $this->_workerObj->onMessage = function($connection, $data)
         {
+            $data = json_decode($data,true);
+            if (empty($data['userid']))
+            {
+                $this->_onlineUser[$connection->uid] = $data['id'];
+                Redis::sadd('userlists',$this->_onlineUser[$connection->uid]);
+
+                foreach($this->_workerObj->connections as $conn)
+                {
+                    $conn->send('{"login":1}');
+                }
+                return false;
+            }else{
+                $data['date'] = date('Y-m-d H:i:s');
+                $data['content'] = str_replace(array( "\r\n" , "\n" , "\r" ), '<br>', $data['content']);
+                $data = json_encode($data);
+                Redis::rpush('chat_group1',$data);
+            }
+
             foreach($this->_workerObj->connections as $conn)
             {
-                $conn->send("user[{$connection->uid}] said: $data");
+                $conn->send($data);
             }
         };
 
@@ -76,7 +93,8 @@ class Workerman extends Command
         {
             foreach($this->_workerObj->connections as $conn)
             {
-                $conn->send("user[{$connection->uid}] logout");
+                Redis::srem('userlists',$this->_onlineUser[$connection->uid]);
+                $conn->send('{"login":0}');
             }
         };
 
