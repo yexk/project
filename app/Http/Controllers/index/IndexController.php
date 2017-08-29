@@ -7,8 +7,11 @@ use App\Http\Controllers\Controller;
 
 class IndexController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
     	echo "1";
+        echo $request->getClientIp();
+        dd($GLOBALS);
+
     }
 }

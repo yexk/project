@@ -10,7 +10,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "workerman/phpsocket.io-for-win": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

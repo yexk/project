@@ -53,7 +53,8 @@ class Workerman extends Command
 
         // 1 processes
         $this->_workerObj->count = 1;
-
+        Worker::$daemonize = true;
+        Worker::$stdoutFile = './stdout.log';
         // Emitted when new connection come
         $this->_workerObj->onConnect = function($connection)
         {

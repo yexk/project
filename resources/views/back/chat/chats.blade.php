@@ -10,6 +10,13 @@
 @stop
 
 @section('content')
+<div id="show_error_msg" style="display: none;">
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>错误!</strong> 当前服务器处于异常的状态!
+  </div>
+</div>
+
 <div class="col-sm-3">
   <section class="panel">
     <header class="panel-heading">
@@ -111,7 +118,10 @@
 <script src="assets/jquery-emoji/lib/script/jquery.mCustomScrollbar.min.js"></script>
 <script src="assets/jquery-emoji/js/jquery.emoji.min.js"></script>
 <script>
-ws = new WebSocket("ws://192.168.0.120:11104");
+ws = new WebSocket("ws://192.168.10.18:11104");
+ws.onerror = function(){
+  $('#show_error_msg').show();
+};
 ws.onopen = function() {
   ws.send('{"id":"{{ $id }}" }');
 };
@@ -310,6 +320,7 @@ $(function(){
               50: "OK"
           }
       }, {
+          name: "QQ",
           path: "assets/jquery-emoji/img/qq/",
           maxNum: 91,
           excludeNums: [41, 45, 54],
@@ -317,6 +328,8 @@ $(function(){
           placeholder: "#qq_{alias}#"
       }]
   });
+  
+//  toastr.info("asdfsaf", "Toastr Notificationasdf",{onclick:(e)=>{console.log(arguments)},positionClass:'toast-top-full-width'});
 
   emoji_parse();
   update_userlist();

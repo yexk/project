@@ -46,8 +46,12 @@ Route::group(['prefix' => 'yexk'], function () {
     Route::get('/mail/inbox','Back\EmailsController@inbox')->name('mail.inbox');
     Route::post('/mail/send','Back\EmailsController@sendMail')->name('mail.send');
     
-    // email manger
+    // chat manger
     Route::get('/chat/chats','Back\ChatController@chats')->name('chat.chats');
 
     
+    // Other
+    
+    Route::get('lock','Back\OtherController@lockScreen')->name('lock');
+
 });

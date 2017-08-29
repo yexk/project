@@ -102,8 +102,8 @@
               </a>
             </li>
             <li>
-              <a href="inbox_details.html">
-                邮箱详情
+              <a href="{{ route('mail.inbox') }}">
+                站内信
               </a>
             </li>
           </ul>
