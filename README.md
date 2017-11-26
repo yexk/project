@@ -11,3 +11,5 @@ php artisan db:seed
 php artisan queue:work 
 
 ```
+
+> develop ... loading 
