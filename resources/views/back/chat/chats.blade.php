@@ -118,7 +118,7 @@
 <script src="assets/jquery-emoji/lib/script/jquery.mCustomScrollbar.min.js"></script>
 <script src="assets/jquery-emoji/js/jquery.emoji.min.js"></script>
 <script>
-ws = new WebSocket("ws://192.168.10.18:11104");
+ws = new WebSocket("ws://127.0.0.1:11104");
 ws.onerror = function(){
   $('#show_error_msg').show();
 };
