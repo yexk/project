@@ -37,10 +37,10 @@ class Articles extends Model
 
     /**
      * 添加文章数据
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Object     $request              请求数据
-     * @return   Array                            状态信息
+     * @return   array
      */
 	public static function insertData($request)
     {
@@ -70,10 +70,10 @@ class Articles extends Model
 
     /**
      * 更新文章数据
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Object     $request              请求数据
-     * @return   Array                            状态信息
+     * @return   array
      */
 	public static function updateData($request)
     {
@@ -106,7 +106,7 @@ class Articles extends Model
      * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Object     $request              请求数据
-     * @return   Array                            状态信息
+     * @return   array
      */
     public static function getDataTableDatas($request)
     {
@@ -138,7 +138,7 @@ class Articles extends Model
      * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
      * @param    Object     $request              请求数据
-     * @return   Array                            状态信息
+     * @return   array
      */
     public static function softDelOne($request)
     {

@@ -20,7 +20,7 @@ class Categories extends Model
      * @Author Yexk       <yexk@yexk.cn>
      * @Date   2017-07-05
      * @param  Object     $post          表单数据
-     * @return Object                    状态
+     * @return array
      */
 	public static function insertData($post = null)
     {
@@ -69,10 +69,11 @@ class Categories extends Model
 
     /**
      * 删除操作。强制删除使用了递归删除。
-     * @Author   Yexk       <yexk@carystudio.com>
+     * @Author   Yexk       <yexk@yexk.cn>
      * @DateTime 2017-07-11
-     * @param    [type]     $request              [description]
+     * @param    boolean     $request              [description]
      * @param    boolean    $force                [description]
+     * @return   array
      */
     public static function setDelete($request , $force = false)
     {
