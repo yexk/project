@@ -9,9 +9,7 @@ class IndexController extends Controller
 {
     public function index(Request $request)
     {
-    	echo "1";
-        echo $request->getClientIp();
-        dd($GLOBALS);
-
+        
+        return view('index/home');
     }
 }
