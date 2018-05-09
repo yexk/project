@@ -48,6 +48,9 @@ Route::group(['prefix' => 'yexk'], function () {
     
     // chat manger
     Route::get('/chat/chats','Back\ChatController@chats')->name('chat.chats');
+    
+    // wechatchat manger
+    Route::get('/wechat/index','Back\WechatController@index')->name('wechat.index');
 
     
     // Other
