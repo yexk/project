@@ -19,9 +19,22 @@ class WechatController extends Controller
       'appsecret'=>env('wx_appsecret') //填写高级调用功能的密钥
     ];
     $this->wx = new \App\Lib\Wechat($this->option);
+    $this->wx->valid();
   }
    
   public function index(){
-    echo '1';
+    $type = $this->wx->getRev()->getRevType();
+    switch($type) {
+      case Wechat::MSGTYPE_TEXT:
+          $this->wx->text("hello, I'm wechat")->reply();
+          exit;
+          break;
+      case Wechat::MSGTYPE_EVENT:
+          break;
+      case Wechat::MSGTYPE_IMAGE:
+          break;
+      default:
+          $this->wx->text("help info")->reply();
+    }
   }
 }
