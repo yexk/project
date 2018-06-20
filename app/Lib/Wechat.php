@@ -1192,7 +1192,7 @@ class Wechat
 	 */
 	protected function getCache($cachename){
 		// 已经写了。。@by yexk
-		$redis = new redisdb(array('auth' => env('REDIS_AUTH')));
+		$redis = new Redisdb(array('auth' => env('REDIS_AUTH')));
 		if ($redis->exists($cachename)) {
 			return $redis->get($cachename);
 		}
