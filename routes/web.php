@@ -15,6 +15,9 @@
 Route::get('/','Index\IndexController@index')->name('/');
 
 
+// api wechatchat manger
+Route::get('/wechat/index','Api\WechatController@index')->name('wechat.index');
+
 // backend
 Route::group(['prefix' => 'yexk'], function () {
     Route::get('/', 'Back\LoginController@index')->name('/');
@@ -48,10 +51,6 @@ Route::group(['prefix' => 'yexk'], function () {
     
     // chat manger
     Route::get('/chat/chats','Back\ChatController@chats')->name('chat.chats');
-    
-    // wechatchat manger
-    Route::get('/wechat/index','Back\WechatController@index')->name('wechat.index');
-
     
     // Other
     

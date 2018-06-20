@@ -1178,7 +1178,10 @@ class Wechat
 	 * @return boolean
 	 */
 	protected function setCache($cachename,$value,$expired){
-		//TODO: set cache implementation
+		// 已经写了。。@by yexk
+        $redis = new Redisdb(array('auth' => env('REDIS_AUTH')));
+        $redis->set($cachename,$value);
+		$redis->expire($cachename,$expired);
 		return false;
 	}
 
@@ -1188,7 +1191,11 @@ class Wechat
 	 * @return mixed
 	 */
 	protected function getCache($cachename){
-		//TODO: get cache implementation
+		// 已经写了。。@by yexk
+		$redis = new redisdb(array('auth' => env('REDIS_AUTH')));
+		if ($redis->exists($cachename)) {
+			return $redis->get($cachename);
+		}
 		return false;
 	}
 
