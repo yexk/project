@@ -30,7 +30,7 @@ class EmailsController extends Controller
     public function sendMail(Request $request)
     {
         $data = [];
-        $data['to'] = $request->to;
+        $data['to'] = explode(';',$request->to);
         $data['cc'] = $request->cc;
         $data['bcc'] = $request->bcc;
         $data['subject'] = $request->subject;

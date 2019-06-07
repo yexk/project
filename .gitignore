@@ -9,3 +9,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
+/package-lock.json
+/.vscode
+yarn.lock
+composer.lock

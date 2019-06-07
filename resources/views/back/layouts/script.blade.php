@@ -10,13 +10,13 @@
 <script src="js/common-scripts.js"></script><!-- BASIC COMMON JS -->
 <script src="js/count.js"></script><!-- COUNT JS -->
 <script src="js/sweetalert.min.js"></script><!-- SWEETALERT JS -->
+<script src="/common/js/toastr.min.js"></script><!-- TOASTR JS -->
 <!-- END JS -->
 <script>
 Config = {};
 
 $(function(){
 	Config._token = $('meta[name="_token"]').attr('content');
-
 
 	$(".go-top").click(function(){ 
         $.scrollTo(0,1000); 
@@ -39,5 +39,20 @@ $(function(){
 			}
 		}
 	});
+
+	toastr.options = {
+	  "closeButton": true,
+	  "debug": false,
+	  "progressBar": true,
+	  "positionClass": "toast-top-right",
+	  "showDuration": "300",
+	  "hideDuration": "1000",
+	  "timeOut": "5000",
+	  "extendedTimeOut": "1000",
+	  "showEasing": "swing",
+	  "hideEasing": "linear",
+	  "showMethod": "fadeIn",
+	  "hideMethod": "fadeOut"
+	}
 });
 </script>

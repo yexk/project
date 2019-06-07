@@ -81,7 +81,7 @@
 @stop
 
 @section('scripts')
-<script src="js/jquery.validate.min.js"></script><!-- VALIDATE JS  -->
+
 <script src="js/jquery.tagsinput.js" ></script> <!-- TAGS INPUT JS  -->
 <script src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script><!-- BOOTSTRAP DATETIMEPICKER JS  -->
 <script src="/common/js/editormd.js"></script><!-- SWEETALERT JS -->
@@ -105,8 +105,8 @@ $(function(){
         return ["undo", "redo", "|","bold","del","hr","quote", "|", "table","reference-link","image","code","datetime","|","html-entities", "||", "watch", "preview"];
       },
       imageUpload    : true,
-      imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-      imageUploadURL : "{{ route('art.lists') }}",
+      imageFormats   : ["jpg", "jpeg", "gif", "png"],
+      imageUploadURL : "{{ route('art.uploadFiles',['file_upload'=>1,'_token'=>csrf_token()]) }}",
   });
     
   $('input[name="title"]').on('focus', function(event) {
@@ -115,54 +115,57 @@ $(function(){
 
   // 提交表单
   var $art_edit = $('#art_edit');
-  $art_edit.validate({
-        rules: {
-            title: "required",
-            cate_id: "required",
-        },
-        messages: {
-            title: '标题不能为空！',
-            cate_id: '分类不能为空！',
-        },
-        submitHandler:function () {
-          $.ajax({
-            url: "{{ route('art.edited',['id'=>$art->id]) }}",
-            type: 'POST',
-            dataType: 'JSON',
-            data: $art_edit.serialize(),
-            success: function(data) {
-              if (1 == data.code) {
-                swal({
-                  title: data.msg,
-                  text: '',
-                  type: "success",
-                },function(){
-                  location.href = '{{ route("art.lists") }}';
-                });
-              }
-            },
-            error: function(data) {
-              if (4 == data.readyState && 422 == data.status) {
-                var responseText = JSON.parse(data.responseText);
-                if (responseText['content-markdown-doc']) {
-                  swal({
-                    title: '文章内容不能为空！',
-                    text: '',
-                    type: "error",
-                  });
-                }else{
-                  swal({
-                    title: responseText['title'][0],
-                    text: '',
-                    type: "error",
-                  },function(){
-                    $('[name="title"]').next().show().html(responseText.title[0]);
-                  });
-                }
-              }
-            }
+  $art_edit.on('submit', function(event) {
+    event.preventDefault();
+    if (!$('input[name="title"]').val()) {
+        swal('标题不能为空！','','error');
+        return false;
+    }
+    if ('' == $('input[name="cate_id"]').val()) {
+        swal('文章分类未选择或者未添加！','如果分类未添加，请先添加分类！','error');
+        return false;
+    }
+    if (!$('[name="content-markdown-doc"]').html()) {
+        swal('文章内容不能为空！','','error');
+        return false;
+    }
+  $.ajax({
+    url: "{{ route('art.edited',['id'=>$art->id]) }}",
+    type: 'POST',
+    dataType: 'JSON',
+    data: $art_edit.serialize(),
+    success: function(data) {
+      if (1 == data.code) {
+        swal({
+          title: data.msg,
+          text: '',
+          type: "success",
+        },function(){
+          location.href = '{{ route("art.lists") }}';
+        });
+      }
+    },
+    error: function(data) {
+      if (4 == data.readyState && 422 == data.status) {
+        var responseText = JSON.parse(data.responseText);
+        if (responseText['content-markdown-doc']) {
+          swal({
+            title: '文章内容不能为空！',
+            text: '',
+            type: "error",
+          });
+        }else{
+          swal({
+            title: responseText['title'][0],
+            text: '',
+            type: "error",
+          },function(){
+            $('[name="title"]').next().show().html(responseText.title[0]);
           });
         }
+      }
+    }
+  });
     });    
   
 });

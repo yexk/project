@@ -158,6 +158,20 @@ class User extends Model
         return $result;
     }
 
+    /**
+     * 更新用户最后登录的ip地址
+     *
+     * @param $request
+     * @Author  Yexk <yexk@yexk.cn>
+     * @DateTime 2017-8-10
+     * @return array
+     */
+    public static function setUserIp($userid = '',$ip = '')
+    {
+        $user = self::find($userid);
+        $user->last_login_ip = $ip;
+        $user->save();
+    }
 
 
 }

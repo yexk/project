@@ -15,6 +15,9 @@
 Route::get('/','Index\IndexController@index')->name('/');
 
 
+// api wechatchat manger
+Route::get('/wechat/index','Api\WechatController@index')->name('wechat.index');
+
 // backend
 Route::group(['prefix' => 'yexk'], function () {
     Route::get('/', 'Back\LoginController@index')->name('/');
@@ -35,6 +38,7 @@ Route::group(['prefix' => 'yexk'], function () {
     Route::get('/art/add','Back\ArticlesController@add')->name('art.add');
     Route::get('/art/lists','Back\ArticlesController@lists')->name('art.lists');
     Route::post('/art/store', 'Back\ArticlesController@store')->name('art.store');
+    Route::post('/art/uploadFiles', 'Back\ArticlesController@uploadFiles')->name('art.uploadFiles');
     Route::match(['get', 'post'],'/art/{id}/lists','Back\ArticlesController@edited')->where('id', '[0-9]+')->name('art.edited');
 
     // user manger
@@ -45,6 +49,11 @@ Route::group(['prefix' => 'yexk'], function () {
     Route::get('/mail/inbox','Back\EmailsController@inbox')->name('mail.inbox');
     Route::post('/mail/send','Back\EmailsController@sendMail')->name('mail.send');
     
-
+    // chat manger
+    Route::get('/chat/chats','Back\ChatController@chats')->name('chat.chats');
     
+    // Other
+    
+    Route::get('lock','Back\OtherController@lockScreen')->name('lock');
+
 });
